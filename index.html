@@ -1,0 +1,655 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Bebas+Neue&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;
+  --accent:#e8ff00;--accent2:#ff4d4d;
+  --text:#f0f0f0;--muted:#888;--border:#2a2a2a;
+  --card:#1a1a1a;--white:#ffffff;
+}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(13,13,13,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:58px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--accent)}
+.nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center}
+.nav-links a{font-size:0.8rem;color:var(--muted);letter-spacing:0.05em;cursor:pointer;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-admin{background:var(--accent);color:#000!important;padding:5px 14px;border-radius:3px;font-size:0.75rem!important;font-weight:700!important;cursor:pointer}
+
+.hero{min-height:100vh;background:var(--bg);display:flex;align-items:center;padding:80px 2rem 2rem;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(232,255,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(232,255,0,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.hero-glow{position:absolute;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(ellipse,rgba(232,255,0,0.06) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:1000px;margin:0 auto;width:100%}
+.hero-tag{display:inline-block;background:rgba(232,255,0,0.1);border:1px solid rgba(232,255,0,0.3);color:var(--accent);font-size:0.75rem;padding:4px 14px;border-radius:2px;letter-spacing:0.15em;margin-bottom:1.5rem}
+.hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,12vw,9rem);line-height:0.9;color:var(--white);letter-spacing:0.02em;margin-bottom:0.5rem}
+.hero-name span{color:var(--accent)}
+.hero-role{font-size:1rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:1rem;font-weight:300}
+.hero-desc{font-size:0.95rem;line-height:1.9;color:rgba(240,240,240,0.7);max-width:480px;margin-bottom:2.5rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-fill{background:var(--accent);color:#000;padding:12px 28px;font-size:0.85rem;font-weight:700;letter-spacing:0.05em;border:none;cursor:pointer;border-radius:2px;transition:opacity 0.2s}
+.btn-fill:hover{opacity:0.85}
+.btn-ghost{background:transparent;color:var(--text);padding:12px 28px;font-size:0.85rem;border:1px solid var(--border);cursor:pointer;border-radius:2px;transition:border-color 0.2s}
+.btn-ghost:hover{border-color:var(--accent)}
+
+.sec{padding:90px 2rem;max-width:1000px;margin:0 auto}
+.sec-alt{background:var(--bg2)}
+.sec-alt .sec{max-width:100%;padding-left:max(2rem,calc((100% - 1000px)/2));padding-right:max(2rem,calc((100% - 1000px)/2))}
+.sec-label{font-size:0.7rem;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase;margin-bottom:0.5rem}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);color:var(--white);letter-spacing:0.05em;margin-bottom:2.5rem;line-height:1}
+.sec-title span{color:var(--accent)}
+
+.about-grid{display:grid;grid-template-columns:300px 1fr;gap:3rem;align-items:start}
+.about-photo{aspect-ratio:3/4;background:var(--bg3);border:1px solid var(--border);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:0.82rem;overflow:hidden;position:relative}
+.about-photo img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0}
+.about-text p{font-size:0.95rem;line-height:2;color:rgba(240,240,240,0.8);margin-bottom:1rem}
+.info-list{margin-top:1.5rem;border-top:1px solid var(--border)}
+.info-row{display:flex;border-bottom:1px solid var(--border);padding:10px 0}
+.info-key{width:90px;font-size:0.82rem;color:var(--muted);flex-shrink:0}
+.info-val{font-size:0.88rem;color:var(--text)}
+
+.act-list{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.act-item{display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--border);transition:background 0.15s}
+.act-item:last-child{border-bottom:none}
+.act-item:hover{background:rgba(232,255,0,0.03)}
+.act-num{background:var(--bg3);padding:18px 16px;font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:rgba(255,255,255,0.1);border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+.act-content{padding:18px 20px}
+.act-tag{display:inline-block;background:rgba(232,255,0,0.1);color:var(--accent);font-size:0.7rem;padding:2px 8px;border-radius:2px;margin-bottom:6px;letter-spacing:0.08em}
+.act-name{font-weight:700;font-size:0.95rem;margin-bottom:3px}
+.act-period{font-size:0.78rem;color:var(--muted);margin-bottom:6px}
+.act-desc{font-size:0.85rem;color:rgba(240,240,240,0.65);line-height:1.7}
+
+.proj-grid{display:flex;flex-direction:column;gap:1.5rem}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:4px;overflow:hidden;display:grid;grid-template-columns:280px 1fr;transition:border-color 0.2s}
+.proj-card:hover{border-color:rgba(232,255,0,0.3)}
+.proj-thumb{background:var(--bg3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:0.8rem;min-height:200px;position:relative;overflow:hidden;border-right:1px solid var(--border)}
+.proj-thumb img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0}
+.proj-body{padding:1.8rem}
+.proj-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.ptag{background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-size:0.72rem;padding:3px 10px;border-radius:2px}
+.proj-name{font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:0.6rem}
+.proj-desc{font-size:0.88rem;color:rgba(240,240,240,0.65);line-height:1.8}
+
+/* GALLERY */
+.gallery-wrap{display:flex;flex-direction:column;gap:2.5rem}
+.gallery-label{font-size:0.75rem;letter-spacing:0.15em;color:var(--muted);margin-bottom:1rem;text-transform:uppercase}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.photo-slot{aspect-ratio:1;background:var(--bg3);border:1px dashed var(--border);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--muted);font-size:0.78rem;overflow:hidden;position:relative;transition:border-color 0.2s}
+.photo-slot img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0;border-radius:4px}
+
+/* VIDEO SLOTS */
+.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.video-slot{aspect-ratio:16/9;background:var(--bg3);border:1px solid var(--border);border-radius:6px;overflow:hidden;position:relative}
+.video-slot iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.video-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:0.82rem;cursor:pointer;transition:background 0.2s}
+.video-placeholder:hover{background:rgba(232,255,0,0.04)}
+.video-placeholder .play-icon{width:44px;height:44px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.contact-items{display:flex;flex-direction:column;gap:1.2rem}
+.c-item{display:flex;align-items:center;gap:1.2rem;padding:1rem 1.2rem;background:var(--bg3);border:1px solid var(--border);border-radius:4px}
+.c-icon{width:40px;height:40px;background:rgba(232,255,0,0.1);border:1px solid rgba(232,255,0,0.2);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.c-label{font-size:0.75rem;color:var(--muted);margin-bottom:2px}
+.c-val{font-size:0.9rem;font-weight:500;color:var(--white)}
+.msg-form{display:flex;flex-direction:column;gap:0.8rem}
+.msg-form input,.msg-form textarea{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:10px 14px;font-size:0.88rem;font-family:inherit;color:var(--text);outline:none;transition:border-color 0.2s}
+.msg-form input:focus,.msg-form textarea:focus{border-color:var(--accent)}
+.msg-form textarea{min-height:110px;resize:vertical}
+.msg-send{background:var(--accent);color:#000;border:none;padding:12px;font-size:0.88rem;font-weight:700;cursor:pointer;border-radius:4px}
+.msg-ok{display:none;color:var(--accent);font-size:0.82rem;margin-top:4px}
+
+.footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:0.8rem;color:var(--muted)}
+.footer strong{color:var(--accent)}
+
+/* ADMIN */
+.adm-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:2000;align-items:center;justify-content:center}
+.adm-ov.on{display:flex}
+.adm-box{background:#1a1a1a;border:1px solid #333;border-radius:8px;width:min(560px,96vw);max-height:92vh;overflow-y:auto}
+.adm-head{background:#111;padding:1.1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #333;position:sticky;top:0;z-index:1}
+.adm-head h3{font-size:0.95rem;font-weight:700;color:var(--accent)}
+.adm-x{background:none;border:none;color:#666;cursor:pointer;font-size:1.3rem}
+.adm-body{padding:1.4rem}
+.adm-sec{margin-bottom:1.8rem}
+.adm-sec h4{font-size:0.78rem;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-bottom:0.8rem;padding-bottom:6px;border-bottom:1px solid #2a2a2a}
+.adm-field{margin-bottom:0.75rem}
+.adm-field label{display:block;font-size:0.78rem;color:#666;margin-bottom:3px}
+.adm-field input,.adm-field textarea{width:100%;background:#111;border:1px solid #333;border-radius:4px;padding:8px 11px;font-size:0.85rem;font-family:inherit;color:var(--text);outline:none}
+.adm-field input:focus,.adm-field textarea:focus{border-color:var(--accent)}
+.adm-save{background:var(--accent);color:#000;border:none;padding:11px;font-size:0.9rem;font-weight:700;cursor:pointer;border-radius:4px;width:100%}
+.adm-logout{width:100%;background:none;border:1px solid #333;padding:10px;border-radius:4px;cursor:pointer;font-size:0.85rem;color:#666;margin-top:0.6rem}
+
+.login-wrap{padding:2rem}
+.login-wrap h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.1em;color:var(--accent);margin-bottom:1.4rem}
+.lf{margin-bottom:0.9rem}
+.lf label{display:block;font-size:0.78rem;color:#666;margin-bottom:3px}
+.lf input{width:100%;background:#111;border:1px solid #333;border-radius:4px;padding:10px 12px;font-size:0.9rem;color:var(--text);outline:none;font-family:inherit}
+.lf input:focus{border-color:var(--accent)}
+.login-btn{width:100%;background:var(--accent);color:#000;border:none;padding:12px;font-size:0.9rem;font-weight:700;cursor:pointer;border-radius:4px;margin-top:4px}
+.login-err{color:var(--accent2);font-size:0.8rem;margin-top:6px;display:none}
+.login-cancel{width:100%;background:none;border:1px solid #333;padding:10px;border-radius:4px;cursor:pointer;font-size:0.85rem;color:#666;margin-top:0.5rem}
+
+/* 업로드 버튼 스타일 */
+.upload-btn{display:flex;align-items:center;gap:8px;background:#111;border:1px dashed #444;border-radius:4px;padding:10px 14px;color:#888;font-size:0.82rem;cursor:pointer;width:100%;transition:border-color 0.2s;font-family:inherit}
+.upload-btn:hover{border-color:var(--accent);color:var(--accent)}
+.upload-preview{width:100%;height:80px;object-fit:cover;border-radius:4px;display:none;margin-top:6px}
+
+/* 유튜브 검색 */
+.yt-search-wrap{display:flex;gap:6px;margin-bottom:8px}
+.yt-search-wrap input{flex:1;background:#111;border:1px solid #333;border-radius:4px;padding:8px 11px;font-size:0.85rem;font-family:inherit;color:var(--text);outline:none}
+.yt-search-wrap input:focus{border-color:var(--accent)}
+.yt-search-btn{background:var(--accent);color:#000;border:none;padding:8px 14px;border-radius:4px;font-size:0.8rem;font-weight:700;cursor:pointer;white-space:nowrap}
+.yt-results{display:flex;flex-direction:column;gap:6px;max-height:200px;overflow-y:auto;margin-bottom:6px}
+.yt-result-item{display:flex;align-items:center;gap:10px;padding:8px 10px;background:#111;border:1px solid #2a2a2a;border-radius:4px;cursor:pointer;transition:border-color 0.15s}
+.yt-result-item:hover{border-color:var(--accent)}
+.yt-result-item.selected{border-color:var(--accent);background:rgba(232,255,0,0.05)}
+.yt-thumb{width:64px;height:36px;object-fit:cover;border-radius:3px;flex-shrink:0}
+.yt-info{flex:1;min-width:0}
+.yt-vtitle{font-size:0.78rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.yt-channel{font-size:0.7rem;color:var(--muted)}
+.yt-selected-preview{aspect-ratio:16/9;width:100%;border-radius:4px;border:1px solid var(--border);display:none;margin-top:4px}
+.yt-manual-row{display:flex;align-items:center;gap:8px;margin-top:4px}
+.yt-manual-row span{font-size:0.75rem;color:var(--muted);white-space:nowrap}
+.yt-loading{font-size:0.78rem;color:var(--muted);padding:8px;text-align:center}
+.yt-error{font-size:0.75rem;color:var(--accent2);padding:6px;text-align:center}
+
+/* PHOTO UPLOAD GRID */
+.photo-upload-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.photo-upload-slot{position:relative;aspect-ratio:1;background:#111;border:1px dashed #333;border-radius:4px;overflow:hidden;cursor:pointer;transition:border-color 0.2s}
+.photo-upload-slot:hover{border-color:var(--accent)}
+.photo-upload-slot img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0}
+.photo-upload-slot .slot-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:0.72rem;color:#555}
+.photo-upload-slot .slot-num{position:absolute;top:4px;left:6px;font-size:0.65rem;color:#444;font-weight:700}
+.photo-upload-slot input[type=file]{display:none}
+
+@media(max-width:700px){
+  .about-grid,.contact-wrap{grid-template-columns:1fr}
+  .proj-card{grid-template-columns:1fr}
+  .proj-thumb{min-height:160px;border-right:none;border-bottom:1px solid var(--border)}
+  .photo-grid,.photo-upload-grid{grid-template-columns:repeat(2,1fr)}
+  .video-grid{grid-template-columns:1fr}
+}
+</style>
+
+<nav class="nav">
+  <div class="nav-logo">MUI<span style="color:#fff">JOHN</span></div>
+  <ul class="nav-links">
+    <li><a onclick="goTo('about')">자기소개</a></li>
+    <li><a onclick="goTo('activities')">활동</a></li>
+    <li><a onclick="goTo('projects')">프로젝트</a></li>
+    <li><a onclick="goTo('gallery')">작품</a></li>
+    <li><a onclick="goTo('contact')">연락처</a></li>
+    <li><a class="nav-admin" onclick="openAdm()">관리자</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">취업 준비생 · 고등학생</div>
+    <div class="hero-name">문<span>의</span>준</div>
+    <div class="hero-role">PORTFOLIO 2024</div>
+    <div class="hero-desc" id="h-desc">열정과 성실함으로 목표를 향해 나아가는 문의준입니다.<br>다양한 경험과 프로젝트를 통해 실력을 쌓아왔습니다.</div>
+    <div class="hero-btns">
+      <button class="btn-fill" onclick="goTo('projects')">프로젝트 보기</button>
+      <button class="btn-ghost" onclick="goTo('contact')">연락하기</button>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+<div class="sec">
+  <div class="sec-label">Section 01</div>
+  <div class="sec-title">자기 <span>소개</span></div>
+  <div class="about-grid">
+    <div class="about-photo" id="a-photo-wrap">
+      <span style="font-size:2rem;opacity:0.4">👤</span>
+      <span>프로필 사진</span>
+      <img id="a-photo" alt="프로필">
+    </div>
+    <div>
+      <div class="about-text">
+        <p id="a-text1">안녕하세요! 저는 <strong style="color:var(--accent)">문의준</strong>입니다. 현재 취업을 준비하고 있으며, 다양한 교내외 활동과 프로젝트를 통해 꾸준히 성장하고 있습니다.</p>
+        <p id="a-text2">창의적인 사고와 실행력으로 문제를 해결하는 것을 즐기며, 팀과의 협업에서 시너지를 만들어내는 것을 강점으로 삼고 있습니다.</p>
+      </div>
+      <div class="info-list">
+        <div class="info-row"><span class="info-key">이름</span><span class="info-val" id="i-name">문의준</span></div>
+        <div class="info-row"><span class="info-key">학교</span><span class="info-val" id="i-school">○○고등학교</span></div>
+        <div class="info-row"><span class="info-key">학년</span><span class="info-val" id="i-grade">-</span></div>
+        <div class="info-row"><span class="info-key">관심분야</span><span class="info-val" id="i-interest">-</span></div>
+        <div class="info-row"><span class="info-key">희망직무</span><span class="info-val" id="i-job">-</span></div>
+        <div class="info-row"><span class="info-key">연락처</span><span class="info-val">010-3147-9906</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="sec-alt" id="activities">
+<div class="sec">
+  <div class="sec-label">Section 02</div>
+  <div class="sec-title">교내외 <span>활동</span></div>
+  <div class="act-list">
+    <div class="act-item"><div class="act-num">01</div><div class="act-content"><span class="act-tag">교내</span><div class="act-name" id="act-n0">학생회 활동</div><div class="act-period" id="act-p0">2023.03 – 2023.12</div><div class="act-desc" id="act-d0">학교 행사 기획 및 운영에 참여하여 리더십과 팀워크를 키웠습니다.</div></div></div>
+    <div class="act-item"><div class="act-num">02</div><div class="act-content"><span class="act-tag">교외</span><div class="act-name" id="act-n1">직업 체험 프로그램</div><div class="act-period" id="act-p1">2023.07</div><div class="act-desc" id="act-d1">지역 기업 방문 및 현장 실습을 통해 실무 감각을 익혔습니다.</div></div></div>
+    <div class="act-item"><div class="act-num">03</div><div class="act-content"><span class="act-tag">교내</span><div class="act-name" id="act-n2">전공 관련 동아리</div><div class="act-period" id="act-p2">2022.03 – 현재</div><div class="act-desc" id="act-d2">관련 분야 탐구 및 발표 활동을 통해 전문성을 높였습니다.</div></div></div>
+  </div>
+</div>
+</div>
+
+<section id="projects">
+<div class="sec">
+  <div class="sec-label">Section 03</div>
+  <div class="sec-title">프로젝트 <span>경험</span></div>
+  <div class="proj-grid">
+    <div class="proj-card">
+      <div class="proj-thumb" id="pt0"><span style="font-size:1.8rem;opacity:0.3">🖼</span><span>이미지 추가</span><img id="pt0-img" alt="p0"></div>
+      <div class="proj-body"><div class="proj-tags"><span class="ptag" id="ptag0">태그</span><span class="ptag">개인 프로젝트</span></div><div class="proj-name" id="pn0">프로젝트 제목 1</div><div class="proj-desc" id="pd0">프로젝트에 대한 설명을 입력해주세요.</div></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-thumb" id="pt1"><span style="font-size:1.8rem;opacity:0.3">🖼</span><span>이미지 추가</span><img id="pt1-img" alt="p1"></div>
+      <div class="proj-body"><div class="proj-tags"><span class="ptag" id="ptag1">태그</span><span class="ptag">팀 프로젝트</span></div><div class="proj-name" id="pn1">프로젝트 제목 2</div><div class="proj-desc" id="pd1">프로젝트에 대한 설명을 입력해주세요.</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="sec-alt" id="gallery">
+<div class="sec">
+  <div class="sec-label">Section 04</div>
+  <div class="sec-title">작품 <span>&amp; 미디어</span></div>
+  <div class="gallery-wrap">
+    <div>
+      <div class="gallery-label">📸 작품 사진</div>
+      <div class="photo-grid" id="photo-grid">
+        <div class="photo-slot"><img id="gs0" alt=""><span style="font-size:1.3rem;opacity:0.3" id="gsp0">📷</span></div>
+        <div class="photo-slot"><img id="gs1" alt=""><span style="font-size:1.3rem;opacity:0.3" id="gsp1">📷</span></div>
+        <div class="photo-slot"><img id="gs2" alt=""><span style="font-size:1.3rem;opacity:0.3" id="gsp2">📷</span></div>
+        <div class="photo-slot"><img id="gs3" alt=""><span style="font-size:1.3rem;opacity:0.3" id="gsp3">📷</span></div>
+        <div class="photo-slot"><img id="gs4" alt=""><span style="font-size:1.3rem;opacity:0.3" id="gsp4">📷</span></div>
+        <div class="photo-slot"><img id="gs5" alt=""><span style="font-size:1.3rem;opacity:0.3" id="gsp5">📷</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="gallery-label">🎬 동영상</div>
+      <div class="video-grid">
+        <div class="video-slot" id="vs0">
+          <div class="video-placeholder" id="vph0"><div class="play-icon">▶</div><span>동영상 1</span><span style="font-size:0.72rem;opacity:0.6">관리자에서 추가</span></div>
+          <iframe id="vf0" allowfullscreen></iframe>
+        </div>
+        <div class="video-slot" id="vs1">
+          <div class="video-placeholder" id="vph1"><div class="play-icon">▶</div><span>동영상 2</span><span style="font-size:0.72rem;opacity:0.6">관리자에서 추가</span></div>
+          <iframe id="vf1" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<section id="contact">
+<div class="sec">
+  <div class="sec-label">Section 05</div>
+  <div class="sec-title">연락 <span>하기</span></div>
+  <div class="contact-wrap">
+    <div class="contact-items">
+      <div class="c-item"><div class="c-icon">📱</div><div><div class="c-label">전화번호</div><div class="c-val">010-3147-9906</div></div></div>
+      <div class="c-item"><div class="c-icon">📧</div><div><div class="c-label">이메일</div><div class="c-val" id="c-email">이메일을 입력하세요</div></div></div>
+      <div class="c-item"><div class="c-icon">🏫</div><div><div class="c-label">학교</div><div class="c-val" id="c-school">○○고등학교</div></div></div>
+      <div class="c-item"><div class="c-icon">🔗</div><div><div class="c-label">SNS / 링크</div><div class="c-val" id="c-sns">-</div></div></div>
+    </div>
+    <div>
+      <div class="msg-form">
+        <input type="text" placeholder="보내는 분 이름" id="m-name">
+        <input type="email" placeholder="이메일 주소" id="m-email">
+        <input type="text" placeholder="제목" id="m-subj">
+        <textarea placeholder="메시지를 입력하세요..." id="m-body"></textarea>
+        <button class="msg-send" onclick="sendMsg()">메시지 보내기 →</button>
+        <div class="msg-ok" id="msg-ok">✓ 메시지가 전송되었습니다!</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer class="footer">
+  <p>© 2024 <strong>문의준</strong> Portfolio · All rights reserved</p>
+</footer>
+
+<!-- ADMIN OVERLAY -->
+<div class="adm-ov" id="adm-ov">
+  <div class="adm-box">
+    <!-- LOGIN -->
+    <div id="v-login">
+      <div class="login-wrap">
+        <h3>ADMIN LOGIN</h3>
+        <div class="lf"><label>아이디</label><input type="text" id="l-id" placeholder="아이디 입력"></div>
+        <div class="lf"><label>비밀번호</label><input type="password" id="l-pw" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')tryLogin()"></div>
+        <div class="login-err" id="l-err">아이디 또는 비밀번호가 올바르지 않습니다.</div>
+        <button class="login-btn" onclick="tryLogin()">로그인</button>
+        <button class="login-cancel" onclick="closeAdm()">취소</button>
+      </div>
+    </div>
+    <!-- EDIT -->
+    <div id="v-edit" style="display:none">
+      <div class="adm-head">
+        <h3>⚙ 포트폴리오 편집</h3>
+        <button class="adm-x" onclick="closeAdm()">✕</button>
+      </div>
+      <div class="adm-body">
+
+        <div class="adm-sec">
+          <h4>기본 정보</h4>
+          <div class="adm-field"><label>이름</label><input id="e-name" value="문의준"></div>
+          <div class="adm-field"><label>학교</label><input id="e-school" value="○○고등학교"></div>
+          <div class="adm-field"><label>학년</label><input id="e-grade" placeholder="예: 3학년"></div>
+          <div class="adm-field"><label>관심분야</label><input id="e-interest" placeholder="예: 마케팅, 디자인"></div>
+          <div class="adm-field"><label>희망직무</label><input id="e-job" placeholder="예: 그래픽 디자이너"></div>
+          <div class="adm-field"><label>한줄 소개</label><textarea id="e-desc" style="min-height:65px">열정과 성실함으로 목표를 향해 나아가는 문의준입니다.
+다양한 경험과 프로젝트를 통해 실력을 쌓아왔습니다.</textarea></div>
+          <div class="adm-field"><label>자기소개 첫 문단</label><textarea id="e-a1" style="min-height:60px">안녕하세요! 저는 문의준입니다. 현재 취업을 준비하고 있으며, 다양한 교내외 활동과 프로젝트를 통해 꾸준히 성장하고 있습니다.</textarea></div>
+          <div class="adm-field"><label>자기소개 두 번째 문단</label><textarea id="e-a2" style="min-height:60px">창의적인 사고와 실행력으로 문제를 해결하는 것을 즐기며, 팀과의 협업에서 시너지를 만들어내는 것을 강점으로 삼고 있습니다.</textarea></div>
+          <div class="adm-field">
+            <label>프로필 사진 업로드</label>
+            <label class="upload-btn" for="upload-profile">📁 파일 선택하기 <span id="profile-fname" style="color:#555;font-size:0.75rem">선택된 파일 없음</span></label>
+            <input type="file" id="upload-profile" accept="image/*" style="display:none" onchange="handleProfileUpload(this)">
+            <img id="profile-preview" class="upload-preview">
+          </div>
+        </div>
+
+        <div class="adm-sec">
+          <h4>연락처</h4>
+          <div class="adm-field"><label>이메일</label><input id="e-email" placeholder="example@email.com"></div>
+          <div class="adm-field"><label>SNS / 링크</label><input id="e-sns" placeholder="Instagram, GitHub 등"></div>
+        </div>
+
+        <div class="adm-sec">
+          <h4>활동 1</h4>
+          <div class="adm-field"><label>활동명</label><input id="e-a0n" value="학생회 활동"></div>
+          <div class="adm-field"><label>기간</label><input id="e-a0p" value="2023.03 – 2023.12"></div>
+          <div class="adm-field"><label>설명</label><textarea id="e-a0d" style="min-height:50px">학교 행사 기획 및 운영에 참여하여 리더십과 팀워크를 키웠습니다.</textarea></div>
+        </div>
+        <div class="adm-sec">
+          <h4>활동 2</h4>
+          <div class="adm-field"><label>활동명</label><input id="e-a1n" value="직업 체험 프로그램"></div>
+          <div class="adm-field"><label>기간</label><input id="e-a1p" value="2023.07"></div>
+          <div class="adm-field"><label>설명</label><textarea id="e-a1d" style="min-height:50px">지역 기업 방문 및 현장 실습을 통해 실무 감각을 익혔습니다.</textarea></div>
+        </div>
+        <div class="adm-sec">
+          <h4>활동 3</h4>
+          <div class="adm-field"><label>활동명</label><input id="e-a2n" value="전공 관련 동아리"></div>
+          <div class="adm-field"><label>기간</label><input id="e-a2p" value="2022.03 – 현재"></div>
+          <div class="adm-field"><label>설명</label><textarea id="e-a2d" style="min-height:50px">관련 분야 탐구 및 발표 활동을 통해 전문성을 높였습니다.</textarea></div>
+        </div>
+
+        <div class="adm-sec">
+          <h4>프로젝트 1</h4>
+          <div class="adm-field"><label>제목</label><input id="e-p0n" value="프로젝트 제목 1"></div>
+          <div class="adm-field"><label>태그</label><input id="e-p0t" value="태그"></div>
+          <div class="adm-field"><label>설명</label><textarea id="e-p0d" style="min-height:60px">프로젝트에 대한 설명을 입력해주세요.</textarea></div>
+          <div class="adm-field">
+            <label>썸네일 이미지 업로드</label>
+            <label class="upload-btn" for="upload-p0">📁 파일 선택하기 <span id="p0-fname" style="color:#555;font-size:0.75rem">선택된 파일 없음</span></label>
+            <input type="file" id="upload-p0" accept="image/*" style="display:none" onchange="handleImgUpload(this,'pt0-img','pt0','p0-fname')">
+            <img id="p0-preview" class="upload-preview">
+          </div>
+        </div>
+        <div class="adm-sec">
+          <h4>프로젝트 2</h4>
+          <div class="adm-field"><label>제목</label><input id="e-p1n" value="프로젝트 제목 2"></div>
+          <div class="adm-field"><label>태그</label><input id="e-p1t" value="태그"></div>
+          <div class="adm-field"><label>설명</label><textarea id="e-p1d" style="min-height:60px">프로젝트에 대한 설명을 입력해주세요.</textarea></div>
+          <div class="adm-field">
+            <label>썸네일 이미지 업로드</label>
+            <label class="upload-btn" for="upload-p1">📁 파일 선택하기 <span id="p1-fname" style="color:#555;font-size:0.75rem">선택된 파일 없음</span></label>
+            <input type="file" id="upload-p1" accept="image/*" style="display:none" onchange="handleImgUpload(this,'pt1-img','pt1','p1-fname')">
+            <img id="p1-preview" class="upload-preview">
+          </div>
+        </div>
+
+        <div class="adm-sec">
+          <h4>작품 사진 업로드 (최대 6장)</h4>
+          <div class="photo-upload-grid" id="photo-upload-grid">
+            <div class="photo-upload-slot" onclick="document.getElementById('gup0').click()">
+              <span class="slot-num">1</span>
+              <div class="slot-overlay"><span style="font-size:1.5rem">＋</span><span>사진 추가</span></div>
+              <img id="gprev0">
+              <input type="file" id="gup0" accept="image/*" onchange="handleGalleryUpload(this,0)">
+            </div>
+            <div class="photo-upload-slot" onclick="document.getElementById('gup1').click()">
+              <span class="slot-num">2</span>
+              <div class="slot-overlay"><span style="font-size:1.5rem">＋</span><span>사진 추가</span></div>
+              <img id="gprev1">
+              <input type="file" id="gup1" accept="image/*" onchange="handleGalleryUpload(this,1)">
+            </div>
+            <div class="photo-upload-slot" onclick="document.getElementById('gup2').click()">
+              <span class="slot-num">3</span>
+              <div class="slot-overlay"><span style="font-size:1.5rem">＋</span><span>사진 추가</span></div>
+              <img id="gprev2">
+              <input type="file" id="gup2" accept="image/*" onchange="handleGalleryUpload(this,2)">
+            </div>
+            <div class="photo-upload-slot" onclick="document.getElementById('gup3').click()">
+              <span class="slot-num">4</span>
+              <div class="slot-overlay"><span style="font-size:1.5rem">＋</span><span>사진 추가</span></div>
+              <img id="gprev3">
+              <input type="file" id="gup3" accept="image/*" onchange="handleGalleryUpload(this,3)">
+            </div>
+            <div class="photo-upload-slot" onclick="document.getElementById('gup4').click()">
+              <span class="slot-num">5</span>
+              <div class="slot-overlay"><span style="font-size:1.5rem">＋</span><span>사진 추가</span></div>
+              <img id="gprev4">
+              <input type="file" id="gup4" accept="image/*" onchange="handleGalleryUpload(this,4)">
+            </div>
+            <div class="photo-upload-slot" onclick="document.getElementById('gup5').click()">
+              <span class="slot-num">6</span>
+              <div class="slot-overlay"><span style="font-size:1.5rem">＋</span><span>사진 추가</span></div>
+              <img id="gprev5">
+              <input type="file" id="gup5" accept="image/*" onchange="handleGalleryUpload(this,5)">
+            </div>
+          </div>
+        </div>
+
+        <!-- 유튜브 동영상 1 -->
+        <div class="adm-sec">
+          <h4>🎬 동영상 1 — YouTube 검색</h4>
+          <div class="yt-search-wrap">
+            <input type="text" id="yt0-q" placeholder="유튜브 영상 제목 검색..." onkeydown="if(event.key==='Enter')ytSearch(0)">
+            <button class="yt-search-btn" onclick="ytSearch(0)">검색</button>
+          </div>
+          <div id="yt0-loading" class="yt-loading" style="display:none">검색 중...</div>
+          <div id="yt0-error" class="yt-error" style="display:none"></div>
+          <div class="yt-results" id="yt0-results"></div>
+          <div class="yt-manual-row">
+            <span>직접 입력:</span>
+            <input type="text" id="yt0-manual" placeholder="youtube.com/watch?v=... 또는 youtu.be/..." style="flex:1;background:#111;border:1px solid #333;border-radius:4px;padding:6px 10px;font-size:0.8rem;color:var(--text);outline:none;font-family:inherit">
+          </div>
+          <iframe id="yt0-preview" class="yt-selected-preview" allowfullscreen></iframe>
+          <div id="yt0-selected-title" style="font-size:0.75rem;color:var(--muted);margin-top:4px;display:none"></div>
+        </div>
+
+        <!-- 유튜브 동영상 2 -->
+        <div class="adm-sec">
+          <h4>🎬 동영상 2 — YouTube 검색</h4>
+          <div class="yt-search-wrap">
+            <input type="text" id="yt1-q" placeholder="유튜브 영상 제목 검색..." onkeydown="if(event.key==='Enter')ytSearch(1)">
+            <button class="yt-search-btn" onclick="ytSearch(1)">검색</button>
+          </div>
+          <div id="yt1-loading" class="yt-loading" style="display:none">검색 중...</div>
+          <div id="yt1-error" class="yt-error" style="display:none"></div>
+          <div class="yt-results" id="yt1-results"></div>
+          <div class="yt-manual-row">
+            <span>직접 입력:</span>
+            <input type="text" id="yt1-manual" placeholder="youtube.com/watch?v=... 또는 youtu.be/..." style="flex:1;background:#111;border:1px solid #333;border-radius:4px;padding:6px 10px;font-size:0.8rem;color:var(--text);outline:none;font-family:inherit">
+          </div>
+          <iframe id="yt1-preview" class="yt-selected-preview" allowfullscreen></iframe>
+          <div id="yt1-selected-title" style="font-size:0.75rem;color:var(--muted);margin-top:4px;display:none"></div>
+        </div>
+
+        <button class="adm-save" onclick="saveAll()">저장하기</button>
+        <button class="adm-logout" onclick="doLogout()">로그아웃</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const AID='qwer1234', APW='qwer1234';
+let loggedIn=false;
+let ytSelected=['',''];
+
+function goTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
+function openAdm(){document.getElementById('adm-ov').classList.add('on');if(loggedIn)showEdit();else showLogin()}
+function closeAdm(){document.getElementById('adm-ov').classList.remove('on')}
+function showLogin(){document.getElementById('v-login').style.display='block';document.getElementById('v-edit').style.display='none'}
+function showEdit(){document.getElementById('v-login').style.display='none';document.getElementById('v-edit').style.display='block'}
+function tryLogin(){
+  if(document.getElementById('l-id').value===AID&&document.getElementById('l-pw').value===APW){
+    loggedIn=true;document.getElementById('l-err').style.display='none';showEdit();
+  } else {document.getElementById('l-err').style.display='block'}
+}
+function doLogout(){loggedIn=false;document.getElementById('l-id').value='';document.getElementById('l-pw').value='';closeAdm()}
+function set(id,val){const el=document.getElementById(id);if(el)el.textContent=val}
+
+// 이미지 업로드 핸들러
+function fileToDataURL(file,cb){
+  const r=new FileReader();
+  r.onload=e=>cb(e.target.result);
+  r.readAsDataURL(file);
+}
+function handleProfileUpload(inp){
+  if(!inp.files[0])return;
+  const f=inp.files[0];
+  document.getElementById('profile-fname').textContent=f.name;
+  fileToDataURL(f,url=>{
+    const prev=document.getElementById('profile-preview');
+    prev.src=url; prev.style.display='block';
+    // 실제 프로필에 바로 반영
+    const img=document.getElementById('a-photo');
+    img.src=url; img.style.display='block';
+    const wrap=document.getElementById('a-photo-wrap');
+    wrap.querySelectorAll('span').forEach(s=>s.style.display='none');
+  });
+}
+function handleImgUpload(inp,imgId,wrapId,fnameId){
+  if(!inp.files[0])return;
+  const f=inp.files[0];
+  document.getElementById(fnameId).textContent=f.name;
+  const n=wrapId.replace('pt','');
+  fileToDataURL(f,url=>{
+    const prev=document.getElementById(n=='0'?'p0-preview':'p1-preview');
+    prev.src=url; prev.style.display='block';
+    const img=document.getElementById(imgId);
+    img.src=url; img.style.display='block';
+    const wrap=document.getElementById(wrapId);
+    wrap.querySelectorAll('span').forEach(s=>s.style.display='none');
+  });
+}
+function handleGalleryUpload(inp,idx){
+  if(!inp.files[0])return;
+  fileToDataURL(inp.files[0],url=>{
+    // 어드민 미리보기
+    const prev=document.getElementById('gprev'+idx);
+    prev.src=url; prev.style.display='block';
+    const slot=prev.parentElement;
+    slot.querySelector('.slot-overlay').style.display='none';
+    // 갤러리에 반영
+    const gimg=document.getElementById('gs'+idx);
+    gimg.src=url; gimg.style.display='block';
+    document.getElementById('gsp'+idx).style.display='none';
+  });
+}
+
+// YouTube 검색 (noembed + oEmbed 폴백)
+function extractYtId(url){
+  const m=url.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/);
+  return m?m[1]:null;
+}
+function ytEmbedUrl(videoId){return 'https://www.youtube.com/embed/'+videoId+'?rel=0'}
+
+async function ytSearch(idx){
+  const q=document.getElementById('yt'+idx+'-q').value.trim();
+  if(!q)return;
+  const loading=document.getElementById('yt'+idx+'-loading');
+  const errEl=document.getElementById('yt'+idx+'-error');
+  const resultsEl=document.getElementById('yt'+idx+'-results');
+  loading.style.display='block'; errEl.style.display='none'; resultsEl.innerHTML='';
+  try {
+    // YouTube Data API v3 없이 검색: noembed로 직접 URL 처리는 불가,
+    // 대신 YouTube search via invidious public API (CORS-friendly)
+    const resp = await fetch('https://vid.puffyan.us/api/v1/search?q='+encodeURIComponent(q)+'&type=video&fields=videoId,title,author,videoThumbnails');
+    if(!resp.ok) throw new Error('검색 실패');
+    const data = await resp.json();
+    loading.style.display='none';
+    if(!data||data.length===0){errEl.textContent='검색 결과가 없습니다.';errEl.style.display='block';return}
+    const items=data.slice(0,5);
+    items.forEach(item=>{
+      const thumb=item.videoThumbnails?item.videoThumbnails[item.videoThumbnails.length-1]?.url:'';
+      const div=document.createElement('div');
+      div.className='yt-result-item';
+      div.innerHTML='<img class="yt-thumb" src="'+thumb+'" onerror="this.style.display=\'none\'"><div class="yt-info"><div class="yt-vtitle">'+item.title+'</div><div class="yt-channel">'+item.author+'</div></div>';
+      div.onclick=()=>selectYt(idx,item.videoId,item.title,div,resultsEl);
+      resultsEl.appendChild(div);
+    });
+  } catch(e){
+    loading.style.display='none';
+    errEl.textContent='검색에 실패했습니다. 아래 "직접 입력"란에 YouTube 링크를 붙여넣으세요.';
+    errEl.style.display='block';
+  }
+}
+
+function selectYt(idx,videoId,title,el,container){
+  container.querySelectorAll('.yt-result-item').forEach(i=>i.classList.remove('selected'));
+  el.classList.add('selected');
+  ytSelected[idx]=videoId;
+  const preview=document.getElementById('yt'+idx+'-preview');
+  preview.src=ytEmbedUrl(videoId);
+  preview.style.display='block';
+  const titleEl=document.getElementById('yt'+idx+'-selected-title');
+  titleEl.textContent='선택됨: '+title;
+  titleEl.style.display='block';
+}
+
+function saveAll(){
+  set('i-name',document.getElementById('e-name').value);
+  set('i-school',document.getElementById('e-school').value);
+  set('i-grade',document.getElementById('e-grade').value||'-');
+  set('i-interest',document.getElementById('e-interest').value||'-');
+  set('i-job',document.getElementById('e-job').value||'-');
+  set('c-school',document.getElementById('e-school').value);
+  set('c-email',document.getElementById('e-email').value||'이메일을 입력하세요');
+  set('c-sns',document.getElementById('e-sns').value||'-');
+  document.getElementById('h-desc').innerHTML=document.getElementById('e-desc').value.replace(/\n/g,'<br>');
+  document.getElementById('a-text1').innerHTML=document.getElementById('e-a1').value;
+  document.getElementById('a-text2').innerHTML=document.getElementById('e-a2').value;
+  ['0','1','2'].forEach(i=>{
+    set('act-n'+i,document.getElementById('e-a'+i+'n').value);
+    set('act-p'+i,document.getElementById('e-a'+i+'p').value);
+    set('act-d'+i,document.getElementById('e-a'+i+'d').value);
+  });
+  ['0','1'].forEach(i=>{
+    set('pn'+i,document.getElementById('e-p'+i+'n').value);
+    set('ptag'+i,document.getElementById('e-p'+i+'t').value);
+    set('pd'+i,document.getElementById('e-p'+i+'d').value);
+  });
+  // 유튜브 동영상 저장
+  for(let i=0;i<2;i++){
+    let vid=ytSelected[i];
+    // 직접 입력 확인
+    const manual=document.getElementById('yt'+i+'-manual').value.trim();
+    if(manual){const mid=extractYtId(manual);if(mid)vid=mid;}
+    if(vid){
+      document.getElementById('vf'+i).src=ytEmbedUrl(vid);
+      document.getElementById('vph'+i).style.display='none';
+    }
+  }
+  alert('✅ 저장되었습니다!');
+  closeAdm();
+}
+
+function sendMsg(){
+  if(!document.getElementById('m-name').value||!document.getElementById('m-email').value){alert('이름과 이메일을 입력해주세요.');return}
+  document.getElementById('msg-ok').style.display='block';
+  ['m-name','m-email','m-subj','m-body'].forEach(id=>document.getElementById(id).value='');
+  setTimeout(()=>document.getElementById('msg-ok').style.display='none',3000);
+}
+</script>
